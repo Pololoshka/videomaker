@@ -1,0 +1,68 @@
+[tool.poetry]
+name = "with-django"
+version = "0.1.0"
+description = ""
+authors = ["Pololoshka <sokolova.polya.98gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.6"
+djangorestframework = "^3.15.1"
+python-dotenv = "^1.0.1"
+psycopg = {extras = ["binary"], version = "^3.1.18"}
+opencv-python = "^4.9.0.80"
+numpy = "^1.26.4"
+pillow = "^10.3.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "*"
+mypy = "*"
+django-stubs = "*"
+djangorestframework-stubs = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.mypy]
+plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
+disallow_untyped_defs = true
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.django-stubs]
+django_settings_module = "src.settings"
+
+[tool.ruff]
+target-version = "py312"
+extend-exclude = [".venv"]
+line-length = 100
+
+[tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules/#error-e
+select = ["ALL"]
+ignore = [
+  "ANN",     # flake8-annotations
+  "D",       # pydocstyle
+  "EM",      # flake8-errmsg
+  "COM812",  # flake8-commas. Trailing comma missing
+  "ISC001",  # flake8-implicit-str-concat. Checks for implicitly concatenated strings on a single line.
+  "PLR2004", # pylint-refactor. Magic value used in comparison
+  "TRY003",  # tryceratops. Avoid specifying long messages outside the exception class
+  "RUF012",  # mutable-class-default
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"test*" = [
+  "ARG001",  # flake8-unused-arguments. Unused function argument
+  "FBT001",  # flake8-boolean-trap. Boolean-typed positional argument in function definition
+  "PLR0913", # pylint-refactor. Too many arguments in function definition ({c_args} > {max_args})
+  "S101",    # flake8-bandit. Use of assert detected
+  "S105",    # flake8-bandit. Possible hardcoded password
+  "S106",    # flake8-bandit. Possible hardcoded password
+  "S107",    # flake8-bandit. Possible hardcoded password
+  "SLF001",  # flake8-self. Private member accessed: {access}
+]
