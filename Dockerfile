@@ -20,5 +20,6 @@ COPY ./poetry.lock .
 RUN poetry install --only main
 
 COPY ./src/ ./src/
+
 COPY ./videomaker/ ./videomaker/
 COPY ./manage.py .

@@ -21,3 +21,6 @@ _packages
 .ruff_cache/
 
 .vscode/
+
+#static
+static/

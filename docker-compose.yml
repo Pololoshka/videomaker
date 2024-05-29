@@ -17,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    command: sh -c "poetry run python manage.py migrate && poetry run python manage.py runserver 0.0.0.0:8000"
+    command: sh -c "poetry run python manage.py migrate && poetry python manage.py collectstatic && poetry run python manage.py runserver 0.0.0.0:8000"
     restart: always
     env_file:
       - .env
