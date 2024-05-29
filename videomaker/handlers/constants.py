@@ -4,7 +4,7 @@ from pathlib import Path
 class Constant:
     width = 100
     height = 100
-    fps = 20.0
+    fps = 70.0
     background_color = (209, 213, 69)
     text_color = (188, 69, 213)
     video_duration = 3

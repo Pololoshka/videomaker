@@ -18,15 +18,17 @@ def create_video(video_name: str, text: str, const: Constant, dir_name: str) -> 
         frameSize=(const.width, const.height),
     )
 
-    frame = np.zeros((const.width, const.height, 3), dtype=np.uint8)
-    x, y = const.width / 10, const.height // (font_size // 5)
-
     pillow_font = ImageFont.truetype(font=const.font_path, size=font_size)
+    text_size = pillow_font.getbbox(text=text)[2]
 
-    step = const.calculate_step(text_size=pillow_font.getbbox(text=text)[2])
+    frame = np.zeros((const.width, const.height, 3), dtype=np.uint8)
+    x = const.width / 10 if text_size > const.width else const.width / 2
+    y = const.height // (font_size // 5)
+
+    step = const.calculate_step(text_size=text_size)
     for _ in range(const.video_duration * int(const.fps)):
         frame.fill(0)
-        x -= step
+        x = x - step if text_size > const.width else x + step
 
         frame[:] = const.background_color
 
